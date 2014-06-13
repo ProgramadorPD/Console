@@ -5,20 +5,41 @@
 		<title>Console Test</title>
 
 		<link rel="stylesheet" type="text/css" href="./js/codemirror/lib/codemirror.css"/>
+		<link rel="stylesheet" type="text/css" href="./js/codemirror/addon/fold/foldgutter.css"/>
+		<link rel="stylesheet" type="text/css" href="./js/codemirror/addon/dialog/dialog.css"/>
 		<link rel="stylesheet" type="text/css" href="./js/codemirror/addon/hint/show-hint.css"/>
-		<link rel="stylesheet" type="text/css" href="./js/codemirror/addon/lint/lint.css"/>
+
+		<link rel="stylesheet" type="text/css" href="./js/codemirror/theme/monokai.css"/>
+		<link rel="stylesheet" type="text/css" href="./js/codemirror/theme/mdn-like.css"/>
 
 
 		<script type="text/javascript" src="./js/codemirror/lib/codemirror.js"></script>
 		<script type="text/javascript" src="./js/codemirror/lib/lint/jslint.js"></script>
 		<script type="text/javascript" src="./js/codemirror/lib/lint/jsonlint.js"></script>
 		<script type="text/javascript" src="./js/codemirror/lib/lint/csslint.js"></script>
+		
+		<!-- MODES -->
+		<script type="text/javascript" src="./js/codemirror/mode/xml/xml.js"></script>
+		<script type="text/javascript" src="./js/codemirror/mode/javascript/javascript.js"></script>
+		<script type="text/javascript" src="./js/codemirror/mode/css/css.js"></script>
+		<script type="text/javascript" src="./js/codemirror/mode/htmlmixed/htmlmixed.js"></script>
 
 		<!-- ADDONS -->
 		<script type="text/javascript" src="./js/codemirror/addon/fold/xml-fold.js"></script>
+		<script type="text/javascript" src="./js/codemirror/addon/fold/foldcode.js"></script>
+		<script type="text/javascript" src="./js/codemirror/addon/fold/brace-fold.js"></script>
+
+		<script type="text/javascript" src="./js/codemirror/addon/comment/comment.js"></script>
+
+		<script type="text/javascript" src="./js/codemirror/addon/dialog/dialog.js"></script>
+
+		<script type="text/javascript" src="./js/codemirror/addon/display/placeholder.js"></script>
+
 		<script type="text/javascript" src="./js/codemirror/addon/edit/closebrackets.js"></script>
+		<script type="text/javascript" src="./js/codemirror/addon/edit/matchbrackets.js"></script>
 		<script type="text/javascript" src="./js/codemirror/addon/edit/closetag.js"></script>
 		<script type="text/javascript" src="./js/codemirror/addon/edit/matchtags.js"></script>
+
 		<script type="text/javascript" src="./js/codemirror/addon/hint/show-hint.js"></script>
 		<!-- <script type="text/javascript" src="./js/codemirror/addon/hint/anyword-hint.js"></script> -->
 		<script type="text/javascript" src="./js/codemirror/addon/hint/xml-hint.js"></script>
@@ -26,24 +47,36 @@
 		<script type="text/javascript" src="./js/codemirror/addon/hint/css-hint.js"></script>
 		<script type="text/javascript" src="./js/codemirror/addon/hint/html-hint.js"></script>
 		<!-- <script type="text/javascript" src="./js/codemirror/addon/hint/sql-hint.js"></script> -->
+
 		<script type="text/javascript" src="./js/codemirror/addon/lint/lint.js"></script>
 		<script type="text/javascript" src="./js/codemirror/addon/lint/javascript-lint.js"></script>
 		<script type="text/javascript" src="./js/codemirror/addon/lint/css-lint.js"></script>
 		<script type="text/javascript" src="./js/codemirror/addon/lint/json-lint.js"></script>
+
+		<script type="text/javascript" src="./js/codemirror/addon/mode/multiplex.js"></script>
+
 		<script type="text/javascript" src="./js/codemirror/addon/search/searchcursor.js"></script>
+		<script type="text/javascript" src="./js/codemirror/addon/search/search.js"></script>
 		<script type="text/javascript" src="./js/codemirror/addon/search/match-highlighter.js"></script>
+
 		<script type="text/javascript" src="./js/codemirror/addon/selection/active-line.js"></script>
 
-		<!-- MODES -->
-		<script type="text/javascript" src="./js/codemirror/mode/xml/xml.js"></script>
-		<script type="text/javascript" src="./js/codemirror/mode/javascript/javascript.js"></script>
-		<script type="text/javascript" src="./js/codemirror/mode/css/css.js"></script>
-		<script type="text/javascript" src="./js/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+		<script type="text/javascript" src="./js/codemirror/addon/wrap/hardwrap.js"></script>
+
+		<!-- KEYMAPS -->
+		<script type="text/javascript" src="./js/codemirror/keymap/sublime.js"></script>
 
 		<style>
 			.CodeMirror {
-				width: 300px;
-				border: 1px solid silver;
+				display: block;
+				margin: 0 auto;
+				width: 70%;
+				margin-top: 50px;
+				/*border: 1px solid silver;*/
+				border-top: 1px solid #eee;
+				border-bottom: 1px solid #eee;
+				line-height: 1.3;
+				height: 500px;
 			}
 
 			.CodeMirror-focused .cm-matchhighlight {
@@ -55,32 +88,109 @@
       		.CodeMirror-matchingtag {
       			background: rgba(255, 150, 0, .3);
       		}
+
+      		.cm-delimit {
+      			color: #fa4;
+      		}
+
+      		.CodeMirror-empty {
+      			outline: 1px solid #c22;
+      		}
+
+      		.CodeMirror-empty.CodeMirror-focused {
+      			outline: none;
+      		}
+
+      		.CodeMirror pre.CodeMirror-placeholder {
+      			color: #999;
+      		}
+
+      		dt {
+      			font-family: monospace;
+      			color: #666;
+      		}
+
+      		.CodeMirror-linenumbers {
+      			padding: 0 8px;
+      		}
 		</style>
 	</head>
 	<body>
 		<div class="wrapper-console">
-			<textarea name="console" id="console" cols="30" rows="10"></textarea>
+			<textarea name="console" id="console" cols="30" rows="10" placeholder="Code goes here...">
+				<?php echo '<html>
+				  <head>
+				    <title>Test Console</title>
+				  </head>
+				  <body>
+				    <p>
+				      Texto para el contenido de mi consola.
+				    </p>
+				  </body>
+				</html>
+
+				function testConsole( that ) {
+					alert( that );
+
+					return( false );
+				}
+
+				* { text-align : center; }'; ?>
+			</textarea>
 		</div>
 		<script type="text/javascript">
 			/*CodeMirror.commands.autocomplete = function( cm ) {
 		    	cm.showHint( { hint : CodeMirror.hint.anyword } );
 		    }*/
 
+		    var value = "// The bindings defined specifically in the Sublime Text mode\nvar bindings = {\n";
+  			var map = CodeMirror.keyMap.sublime, mapK = CodeMirror.keyMap["sublime-Ctrl-K"];
+
+  			for (var key in map) {
+    			if (key != "Ctrl-K" && key != "fallthrough" && (!/find/.test(map[key]) || /findUnder/.test(map[key])))
+      			value += "  \"" + key + "\": \"" + map[key] + "\",\n";
+  			}
+
+  			for (var key in mapK) {
+    			if (key != "auto" && key != "nofallthrough")
+      			value += "  \"Ctrl-K " + key + "\": \"" + mapK[key] + "\",\n";
+  			}
+
+  			value += "}\n\n// The implementation of joinLines\n";
+  			value += CodeMirror.commands.joinLines.toString().replace(/^function\s*\(/, "function joinLines(").replace(/\n  /g, "\n") + "\n";
+
+		    CodeMirror.defineMode( "multiplex", function( config ) {
+			  	return CodeMirror.multiplexingMode(
+			    	CodeMirror.getMode( config, "text/html" ),
+		    		{
+		    			open : "<<",
+		    			close : ">>",
+		    			mode : CodeMirror.getMode( config, "text/plain" ),
+		     			delimStyle : "delimit"
+		     		}
+			  	);
+			});
+
 			var console = CodeMirror.fromTextArea( document.getElementById( "console" ), {
+				value: value,
     			lineNumbers : true,
     			// mode: "javascript",
-    			mode: 'text/html',
+    			// mode: 'text/html',
+    			// mode: 'multiplex',
         		autoCloseTags: true,
         		extraKeys : { "Ctrl-Space" : "autocomplete", "Ctrl-J" : "toMatchingTag" },
-        		// mode : { name: "html", globalVars : true },
+        		keymap : 'sublime',
+        		mode : { name: "application/json", globalVars : true },
         		lineWrapping: true,
     			styleActiveLine : true,
     			matchBrackets : true,
     			autoCloseBrackets : true,
-    			// gutters: ["CodeMirror-lint-markers"],
-    			// lint: true,
+    			gutters: ["CodeMirror-lint-markers"],
+    			lint: true,
     			highlightSelectionMatches : { showToken : /\w/ },
-    			matchTags : { bothTags : true }
+    			showCursorWhenSelecting: true,
+    			matchTags : { bothTags : true },
+    			theme : 'mdn-like'
   			});
       		
       		var charWidth = console.defaultCharWidth(), basePadding = 4;
