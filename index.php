@@ -23,6 +23,7 @@
 		<script type="text/javascript" src="./js/codemirror/mode/javascript/javascript.js"></script>
 		<script type="text/javascript" src="./js/codemirror/mode/css/css.js"></script>
 		<script type="text/javascript" src="./js/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+		<script type="text/javascript" src="./js/codemirror/mode/clike/clike.js"></script>
 
 		<!-- ADDONS -->
 		<script type="text/javascript" src="./js/codemirror/addon/fold/xml-fold.js"></script>
@@ -65,6 +66,7 @@
 
 		<!-- KEYMAPS -->
 		<script type="text/javascript" src="./js/codemirror/keymap/sublime.js"></script>
+		<script type="text/javascript" src="./js/codemirror/keymap/vim.js"></script>
 
 		<style>
 			.CodeMirror {
@@ -171,16 +173,18 @@
 			  	);
 			});
 
-			var console = CodeMirror.fromTextArea( document.getElementById( "console" ), {
+			var consoleBox = CodeMirror.fromTextArea( document.getElementById( "console" ), {
 				value: value,
     			lineNumbers : true,
     			// mode: "javascript",
     			// mode: 'text/html',
     			// mode: 'multiplex',
+    			// mode: 'text/x-csrc',
+    			// vimMode: true,
         		autoCloseTags: true,
         		extraKeys : { "Ctrl-Space" : "autocomplete", "Ctrl-J" : "toMatchingTag" },
         		keymap : 'sublime',
-        		mode : { name: "application/json", globalVars : true },
+        		mode : { name: "javascript", globalVars : true },
         		lineWrapping: true,
     			styleActiveLine : true,
     			matchBrackets : true,
@@ -193,13 +197,18 @@
     			theme : 'mdn-like'
   			});
       		
-      		var charWidth = console.defaultCharWidth(), basePadding = 4;
-      		console.on( "renderLine", function( cm, line, elt ) {
+      		var charWidth = consoleBox.defaultCharWidth(), basePadding = 4;
+      		consoleBox.on( "renderLine", function( cm, line, elt ) {
         		var off = CodeMirror.countColumn( line.text, null, cm.getOption( "tabSize" ) ) * charWidth;
         		elt.style.textIndent = "-" + off + "px";
         		elt.style.paddingLeft = ( basePadding + off ) + "px";
       		} );
-      		console.refresh();
+
+      		consoleBox.on ( "keypress", function( event ) {
+      			console.info( event );
+      		} );
+
+      		consoleBox.refresh();
 		</script>
 	</body>
 </html>
